@@ -2,8 +2,6 @@
 
 @section('title', 'Admin Dashboard')
 
-
-
 @section('content')
 
 
@@ -218,8 +216,9 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <form method="GET" action=""></form>
+                <form method="GET" action="{{ route('getdashboardkabupaten')  }}" method="POST"></form>
                     <div class="col-6">
+                        @csrf
                         <div class="form-group">
                             <label>Provinsi</label>
                             <select class="form-control" id="provinsi">
@@ -234,7 +233,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label>Kabupaten/Kota</label>
-                            <select class="form-control" id="kab_kota">
+                            <select class="form-control" id="kabupaten">
                                 <option>Pilih Option..</option>
                                 @foreach ($list_instansi as $item )
                                 <option value="{{ $item->kode_instansi }}">{{ $item->kab_kota}}</option>
@@ -242,15 +241,17 @@
                             </select>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="button">
-                    <a href="#" class="btn btn-primary">Tampilkan</a>
+                    <a href="" class="btn btn-primary"><i class="fas fa-search"></i>Tampilkan</a>
                 </div>
+                </form>
             </div>
         </div>
 
         <div class="row">
-        @foreach ($rekap_instansi as $key => $item)
+            @foreach ($rekap_instansi as $key => $item)
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -267,7 +268,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->jumlah_nominasi)){{$item->jumlah_nominasi}}@else - @endif</h1>
+                                            <h1>@if(isset($item->jumlah_nominasi_)){{$item->jumlah_nominasi_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +280,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->jumlah_jjm_valid)){{$item->jumlah_jjm_valid}}@else - @endif</h1>
+                                            <h1>@if(isset($item->jumlah_jjm_valid_)){{$item->jumlah_jjm_valid_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +292,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->jumlah_rek_valid)){{$item->jumlah_rek_valid}}@else - @endif</h1>
+                                            <h1>@if(isset($item->jumlah_rek_valid_)){{$item->jumlah_rek_valid_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -303,7 +304,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->jumlah_jjm_rek_valid)){{$item->jumlah_jjm_rek_valid}}@else - @endif</h1>
+                                            <h1>@if(isset($item->jumlah_jjm_rek_valid_)){{$item->jumlah_jjm_rek_valid_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -317,7 +318,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->sasaran_siap_usul)){{$item->sasaran_siap_usul}}@else - @endif</h1>
+                                            <h1>@if(isset($item->sasaran_siap_usul_)){{$item->sasaran_siap_usul_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +330,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->sasaran_siap_sk)){{$item->sasaran_siap_sk}}@else - @endif</h1>
+                                            <h1>@if(isset($item->sasaran_siap_sk_)){{$item->sasaran_siap_sk_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -341,7 +342,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div id="style" style="text-align: right;">
-                                            <h1>@if(isset($item->sasaran_sudah_sk)){{$item->sasaran_sudah_sk}}@else - @endif</h1>
+                                            <h1>@if(isset($item->sasaran_sudah_sk_)){{$item->sasaran_sudah_sk_}}@else - @endif</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -352,36 +353,19 @@
                 </div>
             </div>
         </div>
-    
-    @endforeach
+
+        @endforeach
     </section>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script>
-        $(function() {
-            $ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
-            $(function() {
-                $('#provinsi').on('change', function() {
-                    let id_provinsi = $('#provinsi').val();
-
-                    console.log(id_provinsi);
-                })
-            });
-        });
-    </script>
+    
     @endsection
 
+
+
     @section('page-js-script')
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+   
 
     <!-- <script>
         $(document).ready(function() {
@@ -402,27 +386,6 @@
             });
         });
     </script> -->
-
-    <script>
-        $(function() {
-            $ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $(function() {
-                $('#provinsi').on('change', function() {
-                    let id_provinsi = $('#provinsi').val();
-
-                    console.log(id_provinsi);
-                })
-            });
-        });
-    </script>
-
-
-
 
     @endsection
 

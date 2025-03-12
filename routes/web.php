@@ -26,6 +26,8 @@ Route::get('/', function () {
 
 
 Route::any('dashboard', 'DashboardController@dashboard');
+Route::post('dashboard', 'DashboardController@dashboard')->name('getdashboardkabupaten');
+Route::post('getkabupaten', 'DashboardController@getkabupaten')->name('getkabupaten');
 
 Route::get('/ajax-autocomplete', 'DashboardController@cari_instansi');
 

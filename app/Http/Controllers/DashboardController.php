@@ -18,6 +18,8 @@ class DashboardController extends Controller
         // $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
 
         if($request->get('kode_instansi') != "") {
+            dd($request->kode_instansi);
+            
             $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
       
             $rekap = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->get();
@@ -45,9 +47,23 @@ class DashboardController extends Controller
             $rekap_instansi =  DB::table('dbintan.guest.rekap_ref_0')->get();
 
         }
-        // dd($rekap_instansi);
+        // dd($rekap);
 
         return view('dashboard.index', compact('today','rekap', 'last_update', 'list_instansi', 'rekap_instansi','list_provinsi'));
+    }
+
+
+    function getkabupaten(request $request)
+    {
+        $id_provinsi = $request->id_provinsi;
+        $kabupatens = DB::select(DB::raw("select kode_instansi,kab_kota from dbintan.dbo.ref_kab_kota where propinsi_id = '$id_provinsi'"));
+
+        foreach ($kabupatens as $kabupaten){
+             echo "<option value='$kabupaten->kode_instansi'>$kabupaten->kab_kota<option/>";
+        }
+           
+        
+        
     }
 
     function cari_instansi(Request $request)
