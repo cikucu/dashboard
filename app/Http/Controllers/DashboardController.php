@@ -9,23 +9,45 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
     function dashboard(Request $request){
-        $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
-        // $test = DB::select('select * from dbo.sum_rekap_validasi_202501');
-        $rekap = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->get();
+        // $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+        // // $test = DB::select('select * from dbo.sum_rekap_validasi_202501');
+        // $rekap = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->get();
 
-        $last_update =  DB::select(DB::raw("select top 1 last_update from [dbintan].[guest].[rekap_validasi_sktp]"));
+        // $last_update =  DB::select(DB::raw("select top 1 last_update from [dbintan].[guest].[rekap_validasi_sktp]"));
 
-        $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
+        // $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
 
-        // $nama_instansi_selected = null;
-        // $nama_instansi_selected = $request->nama_instansi_input;
-        // $kode_instansi_selected = DB::select(DB::raw("
-        //             select kode_instansi from dbintan.dbo.ref_kab_kota = '$nama_instansi_selected'"));
-        // $rekapinstansi = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->where('kode_instansi', '=', $kode_instansi_selected[0]->kode_instansi);
-        
-       
-        // dd($rekap);
-        return view('dashboard.index', compact('today','rekap', 'last_update', 'list_instansi'));
+        if($request->get('kode_instansi') != "") {
+            $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+      
+            $rekap = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->get();
+
+            $last_update =  DB::select(DB::raw("select top 1 last_update from [dbintan].[guest].[rekap_validasi_sktp]"));
+
+            $list_provinsi = DB::select(DB::raw("select distinct propinsi_id, provinsi from dbintan.dbo.ref_kab_kota"));
+
+            $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
+
+            $rekap_instansi =  DB::table('dbintan.guest.rekap_validasi_sktp')->where('kode_instansi', '=', $request->kode_instansi)->get();
+        }
+
+        else{
+            $today = Carbon::now()->isoFormat('dddd, D MMMM Y');
+      
+            $rekap = DB::table('dbintan.dbo.sum_rekap_validasi_202501')->get();
+
+            $last_update =  DB::select(DB::raw("select top 1 last_update from [dbintan].[guest].[rekap_validasi_sktp]"));
+
+            $list_provinsi = DB::select(DB::raw("select distinct propinsi_id, provinsi from dbintan.dbo.ref_kab_kota"));
+
+            $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
+
+            $rekap_instansi =  DB::table('dbintan.guest.rekap_ref_0')->get();
+
+        }
+        // dd($rekap_instansi);
+
+        return view('dashboard.index', compact('today','rekap', 'last_update', 'list_instansi', 'rekap_instansi','list_provinsi'));
     }
 
     function cari_instansi(Request $request)
@@ -50,7 +72,7 @@ class DashboardController extends Controller
     function rekap_per_instansi(Request $request){
         if($request->get('query') != "")
         {
-            
+
         }
         else 
         {
