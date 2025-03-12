@@ -50,7 +50,7 @@ class DashboardController extends Controller
     function rekap_per_instansi(Request $request){
         if($request->get('query') != "")
         {
-
+            
         }
         else 
         {

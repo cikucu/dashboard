@@ -218,6 +218,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
+                <form method="GET" action=""></form>
                 <div class="col-6">
                     <div class="form-group">
                     <label>Provinsi</label>
@@ -242,14 +243,11 @@
                     </div>
                 </div>
                 </div>
+                <div class="button">
+                <a href="#" class="btn btn-primary">Tampilkan</a>
+                </div>
             </div>
         </div>
-
-
-
-
-
-
 
         <div class="row">
             <div class="col-12">
@@ -333,6 +331,26 @@
             </div>
         </div>
     </section>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+
+            $(function () {
+                $('#provinsi').on('change', function(){
+                    let id_provinsi = $('#provinsi').val();
+
+                    console.log(id_provinsi); 
+                })
+            });
+        });
+    
+    </script>
     @endsection
    
     @section('page-js-script')
@@ -361,29 +379,20 @@
     </script> -->
 
     <script>
-        // $(function () {
-        //     $ajaxSetup({
-        //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-        //     });
+        $(function () {
+            $ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
 
-        //     $(function () {
-        //         $('#provinsi').on('change', function(){
-        //             let id_provinsi = $('#provinsi').val();
+            $(function () {
+                $('#provinsi').on('change', function(){
+                    let id_provinsi = $('#provinsi').val();
 
-        //             console.log(id_provinsi); 
-        //         })
-        //     });
-        // });
-        $(document).ready(function() {
-        // Attach event handler to the 'change' event of the #provinsi select element
-        $('#provinsi').on('change', function() {
-            // Get the selected value of the provinsi dropdown
-            let id_provinsi = $('#provinsi').val();
-
-            // Log the selected value to the console
-            console.log("Selected Provinsi ID: " + id_provinsi);
+                    console.log(id_provinsi); 
+                })
+            });
         });
-    });
+    
     </script>
 
 
