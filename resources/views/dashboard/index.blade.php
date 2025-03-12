@@ -198,17 +198,55 @@
             </div>
         </div>
 
-        <div class="card">
+        <!-- test adil -->
+        <!-- <div class="card">
             <div class="card-header">
                 <h4>Pilih Instansi</h4>
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
-                    <input type="search" class="form-control" id="search_instansi" placeholder="Ketik Nama Instansi" required aria-describedby="basic-addon1">
+                    <input type="search" class="form-control" id="search_instansi" placeholder="Ketik Nama Instansi">
                     <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
                 </div>
             </div>
+        </div> -->
+        <!-- end test adil -->
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Pilih Instansi</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                    <label>Provinsi</label>
+                    <select class="form-control" id="provinsi">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Kabupaten/Kota</label>
+                        <select class="form-control" id="kab_kota">
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
+
+
+
+
+
+
 
         <div class="row">
             <div class="col-12">
@@ -293,20 +331,21 @@
         </div>
     </section>
 
-   
+
 
 
     @endsection
+    
     @section('page-js-script')
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             var availableTags = [
-                "ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", 
-                "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", 
-                "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", 
+                "ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++",
+                "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy",
+                "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python",
                 "Ruby", "Scala", "Scheme"
             ];
 
@@ -319,12 +358,28 @@
                 }
             });
         });
+    </script> -->
+
+    <script>
+        $(function () {
+            $ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
+
+            $(function () {
+                $('#provinsi').on('change', function(){
+                    let id_provinsi = $('#provinsi').val();
+
+                    console.log(id_provinsi); 
+                })
+            });
+        });
     </script>
 
 
     @endsection
 
-    
+
 
 
 
