@@ -15,7 +15,7 @@ class DashboardController extends Controller
 
         $last_update =  DB::select(DB::raw("select top 1 last_update from [dbintan].[guest].[rekap_validasi_sktp]"));
 
-        $list_nama_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
+        $list_instansi = DB::table('dbintan.dbo.ref_kab_kota')->get();
 
         // $nama_instansi_selected = null;
         // $nama_instansi_selected = $request->nama_instansi_input;
@@ -25,7 +25,7 @@ class DashboardController extends Controller
         
        
         // dd($rekap);
-        return view('dashboard.index', compact('today','rekap', 'last_update'));
+        return view('dashboard.index', compact('today','rekap', 'last_update', 'list_instansi'));
     }
 
     function cari_instansi(Request $request)
@@ -54,7 +54,7 @@ class DashboardController extends Controller
         }
         else 
         {
-            
+
         }           
     }
 }

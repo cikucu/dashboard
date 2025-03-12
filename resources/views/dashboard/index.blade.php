@@ -222,9 +222,11 @@
                     <div class="form-group">
                     <label>Provinsi</label>
                     <select class="form-control" id="provinsi">
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option >Pilih Option..</option>
+                            @foreach ($list_instansi as $item )
+                            <option value="{{ $item->propinsi_id }}">{{ $item->provinsi }}</option>
+                            @endforeach
+                           
                         </select>
                     </div>
                 </div>
@@ -232,9 +234,10 @@
                     <div class="form-group">
                         <label>Kabupaten/Kota</label>
                         <select class="form-control" id="kab_kota">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                        <option >Pilih Option..</option>
+                            @foreach ($list_instansi as $item )
+                            <option value="{{ $item->kode_instansi }}">{{ $item->kab_kota}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -330,14 +333,11 @@
             </div>
         </div>
     </section>
-
-
-
-
     @endsection
-    
+   
     @section('page-js-script')
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
     <!-- <script>
@@ -361,20 +361,32 @@
     </script> -->
 
     <script>
-        $(function () {
-            $ajaxSetup({
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-            });
+        // $(function () {
+        //     $ajaxSetup({
+        //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        //     });
 
-            $(function () {
-                $('#provinsi').on('change', function(){
-                    let id_provinsi = $('#provinsi').val();
+        //     $(function () {
+        //         $('#provinsi').on('change', function(){
+        //             let id_provinsi = $('#provinsi').val();
 
-                    console.log(id_provinsi); 
-                })
-            });
+        //             console.log(id_provinsi); 
+        //         })
+        //     });
+        // });
+        $(document).ready(function() {
+        // Attach event handler to the 'change' event of the #provinsi select element
+        $('#provinsi').on('change', function() {
+            // Get the selected value of the provinsi dropdown
+            let id_provinsi = $('#provinsi').val();
+
+            // Log the selected value to the console
+            console.log("Selected Provinsi ID: " + id_provinsi);
         });
+    });
     </script>
+
+
 
 
     @endsection
